@@ -8,6 +8,7 @@ import os
 import streamlit as st
 import ollama
 from openai import OpenAI
+import base64
 
 ### UI Functions
 def stream_data(text):
@@ -45,17 +46,30 @@ elif listofproducts=="Adengappa kadhaigal!":
     img_file_buffer_adengappa = st.camera_input("Click a picture!. You get to recite a story to your kid")
     if img_file_buffer_adengappa is not None:
         image_bytes_adengappa = img_file_buffer_adengappa.getvalue()
-        print("image ready, calling ollama")
-        adengappa_response = ollama.chat(model = 'llava',messages=[
+        image_base64 = base64.b64encode(image_bytes_adengappa.getvalue()).decode('utf-8')
+        client = OpenAI()
+        adengappa_response = client.chat.completions.create(
+              model="gpt-4o-mini",
+              messages=[
                 {
-                'role':'user',
-                'content': 'Describe the image',
-                'images':[image_bytes_adengappa]
+                  "role": "user",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Describe the image",
+                    },
+                    {
+                      "type": "image_url",
+                      "image_url": {
+                        "url":  f"data:image/jpeg;base64,{image_base64}"
+                      },
+                    },
+                  ],
                 }
-            ]
-        )
-        st.mardown(adengappa_response['message']['content'])
-
+              ],
+            )
+        st.markdown(adengappa_response.choices[0])
+        
 # back to school page
 elif listofproducts=="Back to school!":
     st.title("Back to school season!")
