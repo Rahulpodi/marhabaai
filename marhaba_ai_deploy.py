@@ -46,7 +46,7 @@ elif listofproducts=="Adengappa kadhaigal!":
     img_file_buffer_adengappa = st.camera_input("Click a picture!. You get to recite a story to your kid")
     if img_file_buffer_adengappa is not None:
         image_bytes_adengappa = img_file_buffer_adengappa.getvalue()
-        image_base64 = base64.b64encode(image_bytes_adengappa.getvalue()).decode('utf-8')
+        image_base64 = base64.b64encode(image_bytes_adengappa).decode('utf-8')
         client = OpenAI()
         adengappa_response = client.chat.completions.create(
               model="gpt-4o-mini",
