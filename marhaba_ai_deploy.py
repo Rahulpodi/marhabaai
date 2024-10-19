@@ -127,7 +127,7 @@ else:
                   "content": [
                     {
                       "type": "text",
-                      "text": "Create an arabic recipe basis the food item name mentioned in the provided image",
+                      "text": "Create a middle eastern recipe basis the food item name mentioned in the provided image",
                     },
                     {
                       "type": "image_url",
