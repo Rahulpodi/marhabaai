@@ -2,16 +2,6 @@
 """
 Created on Tue Oct 15 17:36:13 2024
 
-@author: rahul
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Oct 15 16:07:19 2024
-
-@author: rahul
-"""
-
 import time
 import os
 import streamlit as st
@@ -25,7 +15,7 @@ def stream_data(text):
         time.sleep(0.20)
         
 ### Input (company text, images etc.,)
-marhabaailogo = 'marhaba ai logo-01.jpg'
+marhabaailogo = r'C:\Users\rahul\Desktop\Secondary Income\Marhaba AI\MARHABA AI LOGO\marhaba ai logo-01.jpg'
 company_text = "Your gateway to cutting-edge solutions for marketing & advertising. We empower brands to captivate audiences like never before! We are a team of tech & creative enthusiasts specializing in Artifical Intelligence, Machine Learning, Augumented & Virtual Reality"
 os.environ['openai_secret_key'] = st.secrets["openai_secret_key"]
 
@@ -35,46 +25,90 @@ os.environ['openai_secret_key'] = st.secrets["openai_secret_key"]
 
 with st.sidebar:
     st.image(marhabaailogo,width=150)
-    listofproducts = st.selectbox("Choose a product for demo:",("-","Adengappa kadhaigal!","Back to school!"),)
+    listofproducts = st.selectbox("Choose a product for demo:",("-","Adengappa kadhaigal!","Back to school!","Break your fast!","Create a recipe!"),)
     if listofproducts == "-": choicetext = ""
     elif listofproducts == "Adengappa kadhaigal!": choicetext = "Miss your grandparent's stories?! Now, get anyone to recite a story!"
-    else: choicetext = "Joining back school after your summer holidays? Paint a picture of how would you want your school to change!"
+    elif listofproducts == "Back to school!": choicetext = "Joining back school after your summer holidays? Paint a picture of how would you want your school to change!"
+    elif listofproducts == "Break your fast!": choicetext = "This Ramadan, Create an iftaar table using AI"
+    else: choicetext = "Struggling with what to cook? Ask our AI and create a recipe!"
     st.write(choicetext)
 
 # Landing page
 if listofproducts=="-":
     st.title("Marhaba AI")
     st.write_stream(stream_data(company_text))
+
 # adengappa kadhaigal page
 elif listofproducts=="Adengappa kadhaigal!":
     st.title("Adengappa kadhaigal!")
-    img_file_buffer = st.camera_input("Click a picture!. You get to recite a story to your kid")
-    if img_file_buffer is not None:
-        image_bytes = img_file_buffer.getvalue()
+    img_file_buffer_adengappa = st.camera_input("Click a picture!. You get to recite a story to your kid")
+    if img_file_buffer_adengappa is not None:
+        image_bytes_adengappa = img_file_buffer_adengappa.getvalue()
         print("image ready, calling ollama")
-        response = ollama.chat(model = 'llava',messages=[
+        adengappa_response = ollama.chat(model = 'llava',messages=[
                 {
                 'role':'user',
                 'content': 'Describe the image',
-                'images':[image_bytes]
+                'images':[image_bytes_adengappa]
                 }
             ]
         )
-        st.mardown(response['message']['content'])
-#back to school page
-else:
+        st.mardown(adengappa_response['message']['content'])
+
+# back to school page
+elif listofproducts=="Back to school!":
     st.title("Back to school season!")
     st.caption("Sample Prompt: Create a realistic image of a classroom surrounded by nature. Add trees, flowers, and fluffy chairs with students sitting in them, a digital board and butterflies flying.")
-    prompttext = st.chat_input("Imagine, describe and create your dream school with AI")
-    if prompttext is not None:
-        st.caption("Your Prompt: " + prompttext)
-        client = OpenAI()
-        response = client.images.generate(
-            model="dall-e-3",
-            prompt=prompttext,
-            size="1024x1024",
-            quality="standard",
-            n=1,
-            )
-        image_url = response.data[0].url
-        st.image(image_url)
+    school_prompttext = st.chat_input("Imagine, describe and create your dream school with AI")
+    if school_prompttext is not None:
+        if (("school" in school_prompttext) | ("School" in school_prompttext)):
+            st.caption("Your Prompt: " + school_prompttext)
+            client = OpenAI()
+            school_response = client.images.generate(
+                model="dall-e-3",
+                prompt=school_prompttext,
+                size="1024x1024",
+                quality="standard",
+                n=1,
+                )
+            image_url = school_response.data[0].url
+            st.image(image_url)
+        else:
+            st.write("The prompt should contain the word 'school' as the campaign is about 'Back to school!'")
+
+# ramadan iftaar table
+elif listofproducts == "Break your fast!":
+    st.title("Ramadan Season!")
+    st.caption("Sample Prompt: Create a realistic image of an iftaar table which has traditional dishes and the surrounding is also decked up for Ramadan festivities!")
+    ramadan_prompttext = st.chat_input("Create your own iftaar/sehri table for this Ramadan using AI")
+    
+    if (ramadan_prompttext is not None):
+        if (("iftaar" in ramadan_prompttext) | ("Iftaar" in ramadan_prompttext) | ("sehri" in ramadan_prompttext) | ("Sehri" in ramadan_prompttext)):
+            st.caption("Your Prompt: " + ramadan_prompttext)
+            client = OpenAI()
+            ramadan_response = client.images.generate(
+                model="dall-e-3",
+                prompt=ramadan_prompttext,
+                size="1024x1024",
+                quality="standard",
+                n=1,
+                )
+            image_url = ramadan_response.data[0].url
+            st.image(image_url)
+        else:
+            st.write("The prompt should contain the word 'iftaar' or 'sehri' as the campaign is about 'Ramadan Festivities'")
+else:
+    st.title("Create your recipe with AI!")
+    img_file_buffer_recipe = st.file_uploader("Upload a picture of a food item!",type=['png','jpg','jpeg'],accept_multiple_files=False)
+    if img_file_buffer_recipe is not None:
+        image_bytes_recipe = img_file_buffer_recipe.getvalue()
+        print("image ready, calling ollama")
+        recipe_response = ollama.chat(model = 'llava',messages=[
+                {
+                'role':'user',
+                'content': 'Create an arabic recipe basis the food item name mentioned in the provided image',
+                'images':[image_bytes_recipe]
+                }
+            ]
+        )
+        st.mardown(recipe_response['message']['content'])
