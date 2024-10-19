@@ -68,7 +68,7 @@ elif listofproducts=="Adengappa kadhaigal!":
                 }
               ],
             )
-        st.markdown(adengappa_response.choices[0]['message']['content'])
+        st.markdown(adengappa_response.choices[0]['content'])
         
 # back to school page
 elif listofproducts=="Back to school!":
