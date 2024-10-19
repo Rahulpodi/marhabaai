@@ -16,7 +16,7 @@ def stream_data(text):
         time.sleep(0.20)
         
 ### Input (company text, images etc.,)
-marhabaailogo = r'C:\Users\rahul\Desktop\Secondary Income\Marhaba AI\MARHABA AI LOGO\marhaba ai logo-01.jpg'
+marhabaailogo = 'marhaba ai logo-01.jpg'
 company_text = "Your gateway to cutting-edge solutions for marketing & advertising. We empower brands to captivate audiences like never before! We are a team of tech & creative enthusiasts specializing in Artifical Intelligence, Machine Learning, Augumented & Virtual Reality"
 os.environ['openai_secret_key'] = st.secrets["openai_secret_key"]
 
