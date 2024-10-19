@@ -68,7 +68,7 @@ elif listofproducts=="Adengappa kadhaigal!":
                 }
               ],
             )
-        st.markdown(adengappa_response.choices[0])
+        st.markdown(adengappa_response.choices[0]['message']['content'])
         
 # back to school page
 elif listofproducts=="Back to school!":
@@ -117,13 +117,26 @@ else:
     img_file_buffer_recipe = st.file_uploader("Upload a picture of a food item!",type=['png','jpg','jpeg'],accept_multiple_files=False)
     if img_file_buffer_recipe is not None:
         image_bytes_recipe = img_file_buffer_recipe.getvalue()
-        print("image ready, calling ollama")
-        recipe_response = ollama.chat(model = 'llava',messages=[
+        recipe_image_base64 = base64.b64encode(image_bytes_recipe).decode('utf-8')
+        client = OpenAI()
+        recipe_response = client.chat.completions.create(
+              model="gpt-4o-mini",
+              messages=[
                 {
-                'role':'user',
-                'content': 'Create an arabic recipe basis the food item name mentioned in the provided image',
-                'images':[image_bytes_recipe]
+                  "role": "user",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Create an arabic recipe basis the food item name mentioned in the provided image",
+                    },
+                    {
+                      "type": "image_url",
+                      "image_url": {
+                        "url":  f"data:image/jpeg;base64,{recipe_image_base64}"
+                      },
+                    },
+                  ],
                 }
-            ]
-        )
-        st.mardown(recipe_response['message']['content'])
+              ],
+            )
+        st.markdown(recipe_response.choices[0]['message']['content'])
