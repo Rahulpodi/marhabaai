@@ -56,7 +56,7 @@ elif listofproducts=="Adengappa kadhaigal!":
                   "content": [
                     {
                       "type": "text",
-                      "text": "Describe the image",
+                      "text": "Describe the image in detail",
                     },
                     {
                       "type": "image_url",
@@ -127,7 +127,7 @@ else:
                   "content": [
                     {
                       "type": "text",
-                      "text": "Create a middle eastern recipe basis the food item name mentioned in the provided image",
+                      "text": "Create a detailed middle eastern recipe basis the food item name mentioned in the provided image",
                     },
                     {
                       "type": "image_url",
