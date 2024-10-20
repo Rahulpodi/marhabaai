@@ -32,7 +32,8 @@ with st.sidebar:
     elif listofproducts == "Adengappa kadhaigal!": choicetext = "Scan your household item , turn them into stories and become your Kid's favourite Storyteller!"
     elif listofproducts == "Back to school!": choicetext = "IMAGINE & CREATE!\r\nThe Perfect School with AI"
     elif listofproducts == "Ramadan Campaign!": choicetext = "IMAGINE & CREATE!\r\nYour Dream Iftar setup with AI"
-    else: choicetext = '''30 days. 30 inspirational  Recipes for Iftar with AI'''
+    else: choicetext = '''30 days. 30 inspirational  
+    Recipes for Iftar with AI'''
     st.markdown(choicetext)
 
 # Landing page
