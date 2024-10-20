@@ -30,9 +30,9 @@ with st.sidebar:
     listofproducts = st.selectbox("Choose a product for demo:",("-","Adengappa kadhaigal!","Back to school!","Ramadan Campaign!","Create your Ramadan recipe!"),)
     if listofproducts == "-": choicetext = ""
     elif listofproducts == "Adengappa kadhaigal!": choicetext = "Scan your household item , turn them into stories and become your Kid's favourite Storyteller!"
-    elif listofproducts == "Back to school!": choicetext = "IMAGINE & CREATE!        The Perfect School with AI"
-    elif listofproducts == "Ramadan Campaign!": choicetext = "IMAGINE & CREATE!         Your Dream Iftar setup with AI"
-    else: choicetext = "30 days. 30 inspirational Recipes for Iftar with AI"
+    elif listofproducts == "Back to school!": choicetext = "IMAGINE & CREATE!                          The Perfect School with AI"
+    elif listofproducts == "Ramadan Campaign!": choicetext = "IMAGINE & CREATE!                        Your Dream Iftar setup with AI"
+    else: choicetext = "30 days. 30 inspirational                        Recipes for Iftar with AI"
     st.write(choicetext)
 
 # Landing page
@@ -72,7 +72,7 @@ elif listofproducts=="Adengappa kadhaigal!":
         
 # back to school page
 elif listofproducts=="Back to school!":
-    st.title("Back to school season!")
+    st.title("Back to school campaign!")
     st.caption("Sample Prompt: Create a realistic image of a classroom surrounded by nature. Add trees, flowers, and fluffy chairs with students sitting in them, a digital board and butterflies flying.")
     school_prompttext = st.chat_input("Imagine, describe and create your dream school with AI")
     if school_prompttext is not None:
@@ -93,8 +93,8 @@ elif listofproducts=="Back to school!":
 
 # ramadan iftaar table
 elif listofproducts == "Ramadan Campaign!":
-    st.title("Ramadan Season!")
-    st.caption("Sample Prompt: Create an image of an iftaar setup which has traditional dishes and the surrounding is also decked up for Ramadan festivities!")
+    st.title("Ramadan Campaign!")
+    st.caption("Sample Prompt: Create an image of an iftar setup which has traditional dishes and the surrounding is also decked up for Ramadan festivities!")
     ramadan_prompttext = st.chat_input("Create your own iftar/sehri setup for this Ramadan using AI")
     
     if (ramadan_prompttext is not None):
