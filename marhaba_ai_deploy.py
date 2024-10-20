@@ -30,8 +30,10 @@ with st.sidebar:
     listofproducts = st.selectbox("Choose a product for demo:",("-","Adengappa kadhaigal!","Back to school!","Ramadan Campaign!","Create your Ramadan recipe!"),)
     if listofproducts == "-": choicetext = ""
     elif listofproducts == "Adengappa kadhaigal!": choicetext = "Scan your household item , turn them into stories and become your Kid's favourite Storyteller!"
-    elif listofproducts == "Back to school!": choicetext = "IMAGINE & CREATE!\r\nThe Perfect School with AI"
-    elif listofproducts == "Ramadan Campaign!": choicetext = "IMAGINE & CREATE!\r\nYour Dream Iftar setup with AI"
+    elif listofproducts == "Back to school!": choicetext = "IMAGINE & CREATE!  
+    The Perfect School with AI"
+    elif listofproducts == "Ramadan Campaign!": choicetext = "IMAGINE & CREATE!  
+    Your Dream Iftar setup with AI"
     else: choicetext = '''30 days. 30 inspirational  
     Recipes for Iftar with AI'''
     st.markdown(choicetext)
