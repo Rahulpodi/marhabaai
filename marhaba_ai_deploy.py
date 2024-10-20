@@ -27,12 +27,12 @@ os.environ['OPENAI_API_KEY'] = st.secrets["openai_secret_key"]
 
 with st.sidebar:
     st.image(marhabaailogo,width=150)
-    listofproducts = st.selectbox("Choose a product for demo:",("-","Adengappa kadhaigal!","Back to school!","Break your fast!","Create a recipe!"),)
+    listofproducts = st.selectbox("Choose a product for demo:",("-","Adengappa kadhaigal!","Back to school!","Ramadan Campaign!","Create your Ramadan recipe!"),)
     if listofproducts == "-": choicetext = ""
-    elif listofproducts == "Adengappa kadhaigal!": choicetext = "Miss your grandparent's stories?! Now, get anyone to recite a story!"
-    elif listofproducts == "Back to school!": choicetext = "Joining back school after your summer holidays? Paint a picture of how would you want your school to change!"
-    elif listofproducts == "Break your fast!": choicetext = "This Ramadan, Create an iftaar table using AI"
-    else: choicetext = "Struggling with what to cook? Ask our AI and create a recipe!"
+    elif listofproducts == "Adengappa kadhaigal!": choicetext = "Scan your household item , turn them into stories and become your Kid's favourite Storyteller!"
+    elif listofproducts == "Back to school!": choicetext = "IMAGINE & CREATE!        The Perfect School with AI"
+    elif listofproducts == "Ramadan Campaign!": choicetext = "IMAGINE & CREATE!         Your Dream Iftar setup with AI"
+    else: choicetext = "30 days. 30 inspirational Recipes for Iftar with AI"
     st.write(choicetext)
 
 # Landing page
@@ -56,7 +56,7 @@ elif listofproducts=="Adengappa kadhaigal!":
                   "content": [
                     {
                       "type": "text",
-                      "text": "Describe the image in detail",
+                      "text": "Generate a 150 word indian story based on the image provided, which can be recited to my kid",
                     },
                     {
                       "type": "image_url",
@@ -92,13 +92,13 @@ elif listofproducts=="Back to school!":
             st.write("The prompt should contain the word 'school' as the campaign is about 'Back to school!'")
 
 # ramadan iftaar table
-elif listofproducts == "Break your fast!":
+elif listofproducts == "Ramadan Campaign!":
     st.title("Ramadan Season!")
-    st.caption("Sample Prompt: Create a realistic image of an iftaar table which has traditional dishes and the surrounding is also decked up for Ramadan festivities!")
-    ramadan_prompttext = st.chat_input("Create your own iftaar/sehri table for this Ramadan using AI")
+    st.caption("Sample Prompt: Create an image of an iftaar setup which has traditional dishes and the surrounding is also decked up for Ramadan festivities!")
+    ramadan_prompttext = st.chat_input("Create your own iftar/sehri setup for this Ramadan using AI")
     
     if (ramadan_prompttext is not None):
-        if (("iftaar" in ramadan_prompttext) | ("Iftaar" in ramadan_prompttext) | ("sehri" in ramadan_prompttext) | ("Sehri" in ramadan_prompttext)):
+        if (("Iftar" in ramadan_prompttext)|("iftar" in ramadan_prompttext)|("iftaar" in ramadan_prompttext) | ("Iftaar" in ramadan_prompttext) | ("sehri" in ramadan_prompttext) | ("Sehri" in ramadan_prompttext)):
             st.caption("Your Prompt: " + ramadan_prompttext)
             client = OpenAI()
             ramadan_response = client.images.generate(
@@ -111,7 +111,7 @@ elif listofproducts == "Break your fast!":
             image_url = ramadan_response.data[0].url
             st.image(image_url)
         else:
-            st.write("The prompt should contain the word 'iftaar' or 'sehri' as the campaign is about 'Ramadan Festivities'")
+            st.write("The prompt should contain the word 'iftar','iftaar' or 'sehri' as the campaign is about 'Ramadan Festivities'")
 else:
     st.title("Create your recipe with AI!")
     img_file_buffer_recipe = st.file_uploader("Upload a picture of a food item!",type=['png','jpg','jpeg'],accept_multiple_files=False)
