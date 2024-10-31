@@ -130,7 +130,7 @@ else:
                   "content": [
                     {
                       "type": "text",
-                      "text": "Create a detailed middle eastern recipe basis the food item name mentioned in the provided image",
+                      "text": "Create a detailed middle eastern recipe basis the food item name mentioned in the provided image. Don't create a simple recipe",
                     },
                     {
                       "type": "image_url",
