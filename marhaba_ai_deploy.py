@@ -96,9 +96,7 @@ elif listofproducts=="Back to school!":
 
 # ramadan iftaar table
 elif listofproducts == "Ramadan Campaign!":
-    st.button("English",type="primary")
-    st.caption('---or---')
-    st.button("Arabic")
+    st.title("Ramadan Campaign! (حملة رمضان)")
     if st.button("English"):
         st.title("Ramadan Campaign!")
         st.caption("Sample Prompt: Create an image of an iftar setup which has traditional dishes and the surrounding is also decked up for Ramadan festivities!")
