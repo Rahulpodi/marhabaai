@@ -97,7 +97,8 @@ elif listofproducts=="Back to school!":
 # ramadan iftaar table
 elif listofproducts == "Ramadan Campaign!":
     st.title("Ramadan Campaign! (حملة رمضان)")
-    if st.button("English",type="primary"):
+    st.button("Arabic",type="primary")
+    if st.button("English"):
         st.caption("Sample Prompt: Create an image of an iftar setup which has traditional dishes and the surrounding is also decked up for Ramadan festivities!")
         ramadan_prompttext = st.chat_input("Create your own iftar/sehri setup for this Ramadan using AI")    
         if (ramadan_prompttext is not None):
