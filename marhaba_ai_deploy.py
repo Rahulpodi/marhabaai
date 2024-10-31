@@ -97,26 +97,42 @@ elif listofproducts=="Back to school!":
 # ramadan iftaar table
 elif listofproducts == "Ramadan Campaign!":
     st.title("Ramadan Campaign! (حملة رمضان)")
-    if st.button("English"):
-      st.caption("Sample Prompt: Create an image of an iftar setup which has traditional dishes and the surrounding is also decked up for Ramadan festivities!")
-      ramadan_prompttext = st.chat_input("Create your own iftar/sehri setup for this Ramadan using AI")    
-      if (ramadan_prompttext is not None):
-        if (("Iftar" in ramadan_prompttext)|("iftar" in ramadan_prompttext)|("iftaar" in ramadan_prompttext) | ("Iftaar" in ramadan_prompttext) | ("sehri" in ramadan_prompttext) | ("Sehri" in ramadan_prompttext)):
-          st.caption("Your Prompt: " + ramadan_prompttext)
-          client = OpenAI()
-          ramadan_response = client.images.generate(
-          model="dall-e-3",
-          prompt=ramadan_prompttext,
-          size="1024x1024",
-          quality="standard",
-          n=1,
-          )
-          image_url = ramadan_response.data[0].url
-          st.image(image_url)
-        else:
-          st.write("The prompt should contain the word 'iftar','iftaar' or 'sehri' as the campaign is about 'Ramadan Festivities'")
+    if st.button("English",type="primary"):
+        st.caption("Sample Prompt: Create an image of an iftar setup which has traditional dishes and the surrounding is also decked up for Ramadan festivities!")
+        ramadan_prompttext = st.chat_input("Create your own iftar/sehri setup for this Ramadan using AI")    
+        if (ramadan_prompttext is not None):
+          if (("Iftar" in ramadan_prompttext)|("iftar" in ramadan_prompttext)|("iftaar" in ramadan_prompttext) | ("Iftaar" in ramadan_prompttext) | ("sehri" in ramadan_prompttext) | ("Sehri" in ramadan_prompttext)):
+            st.caption("Your Prompt: " + ramadan_prompttext)
+            client = OpenAI()
+            ramadan_response = client.images.generate(
+            model="dall-e-3",
+            prompt=ramadan_prompttext,
+            size="1024x1024",
+            quality="standard",
+            n=1,
+            )
+            image_url = ramadan_response.data[0].url
+            st.image(image_url)
+          else:
+            st.write("The prompt should contain the word 'iftar','iftaar' or 'sehri' as the campaign is about 'Ramadan Festivities'")
     else:
-      st.write("Success. Just convert into arabic")    
+        st.caption("نموذج موجه: قم بإعداد وجبة إفطار على القمر مع وجود كائنات فضائية حولك وديكورات رمضان موجودة")
+        ramadan_prompttext = st.chat_input("قم بإنشاء إعدادات الإفطار/السحور الخاصة بك لشهر رمضان هذا العام باستخدام الذكاء الاصطناعي")    
+        if (ramadan_prompttext is not None):
+          if (("افطار" in ramadan_prompttext)|("افطار" in ramadan_prompttext)|("إفطار" in ramadan_prompttext) | ("إفطار" in ramadan_prompttext) | ("سحر" in ramadan_prompttext) | ("سحر" in ramadan_prompttext)):
+            st.caption("Your Prompt: " + ramadan_prompttext)
+            client = OpenAI()
+            ramadan_response = client.images.generate(
+            model="dall-e-3",
+            prompt=ramadan_prompttext,
+            size="1024x1024",
+            quality="standard",
+            n=1,
+            )
+            image_url = ramadan_response.data[0].url
+            st.image(image_url)
+          else:
+            st.write("يجب أن يحتوي الموضوع على كلمة إفطار أو سحور حيث أن الحملة تتعلق باحتفالات رمضان")    
 else:
     st.title("Create your recipe with AI!")
     img_file_buffer_recipe = st.file_uploader("Upload a picture of a food item!",type=['png','jpg','jpeg'],accept_multiple_files=False)
