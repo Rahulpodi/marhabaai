@@ -145,7 +145,7 @@ else:
         st.image(image_bytes_recipe)
         st.markdown(recipe_response.choices[0].message.content)
         if len(recipe_response.choices[0].message.content)>0:
-            recipe_prompt = "Create a photo of the recipe basis the ingredients and preparation method that follows: "+recipe_response.choices[0].message.content
+            recipe_prompt = "Create a photo of the recipe mentioned basis the ingredients and preparation method "+recipe_response.choices[0].message.content
             st.caption("Here is a photo of the recipe as well!")
             client = OpenAI()
             recipe_response = client.images.generate(
