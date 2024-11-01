@@ -26,14 +26,16 @@ os.environ['OPENAI_API_KEY'] = st.secrets["openai_secret_key"]
 ## Creating the sidebar ux here
 
 with st.sidebar:
-    st.logo(marhabaailogo,link='http://marhabaai.com',size="large")
-    listofproducts = st.selectbox("Choose a product for demo:",("-","Adengappa kadhaigal!","Back to school!","Ramadan Campaign!","Create your Ramadan recipe!"),)
+    st.logo(marhabaailogo,link='https://marhabaai.streamlit.app/',size="large")
+    listofproducts = st.selectbox("Choose a product for demo:",("-","Adengappa kadhaigal!","Back to school!","Ramadan Campaign!","Ramadan Campaign!","Ramadan Campaign! (Arabic)","Create your Ramadan recipe!"),)
     if listofproducts == "-": choicetext = ""
     elif listofproducts == "Adengappa kadhaigal!": choicetext = "Scan your household item , turn them into stories and become your Kid's favourite Storyteller!"
     elif listofproducts == "Back to school!": choicetext = '''IMAGINE & CREATE!  
     The Perfect School with AI'''
     elif listofproducts == "Ramadan Campaign!": choicetext = '''IMAGINE & CREATE!  
     Your Dream Iftar setup with AI'''
+    elif listofproducts == "Ramadan Campaign! (Arabic)": choicetext = '''تخيل وأبدع!  
+    إعداد إفطار أحلامك باستخدام الذكاء الاصطناعي'''
     else: choicetext = '''30 days. 30 inspirational  
     Recipes for Iftar with AI'''
     st.markdown(choicetext)
@@ -115,6 +117,27 @@ elif listofproducts == "Ramadan Campaign!":
             st.image(image_url)
         else:
             st.write("The prompt should contain the word 'iftar','iftaar' or 'sehri' as the campaign is about 'Ramadan Festivities'")
+# ramadan iftaar table - arabic
+elif listofproducts == "Ramadan Campaign! (Arabic)":
+    st.title("الحملة الرمضانية!")
+    st.caption("نموذج موجه: قم بإنشاء صورة لإعداد إفطار يحتوي على أطباق تقليدية ويتم أيضًا تزيين المحيط احتفالًا بشهر رمضان!")
+    ramadan_prompttext = st.chat_input("قم بإنشاء إعدادات الإفطار/السحور الخاصة بك لشهر رمضان هذا العام باستخدام الذكاء الاصطناعي")
+    
+    if (ramadan_prompttext is not None):
+        if (("افطار" in ramadan_prompttext)|("افطار" in ramadan_prompttext)|("افطار" in ramadan_prompttext) | ("افطار" in ramadan_prompttext) | ("سحر" in ramadan_prompttext) | ("سحر" in ramadan_prompttext)):
+            st.caption("Your Prompt: " + ramadan_prompttext)
+            client = OpenAI()
+            ramadan_response = client.images.generate(
+                model="dall-e-3",
+                prompt=ramadan_prompttext,
+                size="1024x1024",
+                quality="standard",
+                n=1,
+                )
+            image_url = ramadan_response.data[0].url
+            st.image(image_url)
+        else:
+            st.write("يجب أن يحتوي الموضوع على كلمة إفطار أو سحور حيث أن الحملة تتعلق باحتفالات رمضان")
 else:
     st.title("Create your recipe with AI!")
     img_file_buffer_recipe = st.file_uploader("Upload a picture of a food item!",type=['png','jpg','jpeg'],accept_multiple_files=False)
