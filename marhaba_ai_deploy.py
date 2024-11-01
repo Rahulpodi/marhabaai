@@ -26,7 +26,7 @@ os.environ['OPENAI_API_KEY'] = st.secrets["openai_secret_key"]
 ## Creating the sidebar ux here
 
 with st.sidebar:
-    st.image(marhabaailogo,width=150)
+    st.logo(marhabaailogo,link='http://marhabaai.com')
     listofproducts = st.selectbox("Choose a product for demo:",("-","Adengappa kadhaigal!","Back to school!","Ramadan Campaign!","Create your Ramadan recipe!"),)
     if listofproducts == "-": choicetext = ""
     elif listofproducts == "Adengappa kadhaigal!": choicetext = "Scan your household item , turn them into stories and become your Kid's favourite Storyteller!"
@@ -144,7 +144,6 @@ else:
             )
         st.image(image_bytes_recipe)
         st.markdown(recipe_response.choices[0].message.content)
-        st.markdown("Somehow not entering after this")
         if len(recipe_response.choices[0].message.content)>0:
             recipe_prompt = "Create a photo of the food item that is described here: "+recipe_response.choices[0].message.content
             st.caption("Here is a photo of the recipe as well!")
