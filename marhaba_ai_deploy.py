@@ -144,6 +144,7 @@ else:
             )
         st.image(image_bytes_recipe)
         st.markdown(recipe_response.choices[0].message.content)
+        st.markdown("Somehow not entering after this")
         if len(recipe_response.choices[0].message.content)>0:
             recipe_prompt = "Create a photo of the food item that is described here: "+recipe_response.choices[0].message.content
             st.caption("Here is a photo of the recipe as well!")
