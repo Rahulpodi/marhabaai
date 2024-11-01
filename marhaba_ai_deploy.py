@@ -144,3 +144,16 @@ else:
             )
         st.image(image_bytes_recipe)
         st.markdown(recipe_response.choices[0].message.content)
+        if len(recipe_response.choices[0].message.content)>0:
+            recipe_prompt = "Create a photo of the food item that is described here: "+recipe_response.choices[0].message.content
+            st.caption("Here is a photo of the recipe as well!")
+            client = OpenAI()
+            recipe_response = client.images.generate(
+                model="dall-e-3",
+                prompt=recipe_prompt,
+                size="1024x1024",
+                quality="standard",
+                n=1,
+                )
+            recipe_image_url = recipe_response.data[0].url
+            st.image(recipe_image_url)
