@@ -117,6 +117,7 @@ elif listofproducts == "Ramadan Campaign!":
             st.image(image_url)
         else:
             st.write("The prompt should contain the word 'iftar','iftaar' or 'sehri' as the campaign is about 'Ramadan Festivities'")
+
 # ramadan iftaar table - arabic
 elif listofproducts == "Ramadan Campaign! (Arabic)":
     st.title("الحملة الرمضانية!")
