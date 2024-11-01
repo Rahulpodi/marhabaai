@@ -126,6 +126,7 @@ elif listofproducts == "Ramadan Campaign! (Arabic)":
     
     if (ramadan_prompttext is not None):
         if (("افطار" in ramadan_prompttext)|("افطار" in ramadan_prompttext)|("افطار" in ramadan_prompttext) | ("افطار" in ramadan_prompttext) | ("سحر" in ramadan_prompttext) | ("سحر" in ramadan_prompttext)):
+            print("Check")
             st.caption("Your Prompt: " + ramadan_prompttext)
             client = OpenAI()
             ramadan_response = client.images.generate(
