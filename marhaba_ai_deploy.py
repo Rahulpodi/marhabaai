@@ -123,7 +123,7 @@ elif listofproducts == "Ramadan Campaign! (Arabic)":
     st.title("الحملة الرمضانية!")
     st.caption("نموذج موجه: قم بإنشاء صورة لإعداد إفطار يحتوي على أطباق تقليدية ويتم أيضًا تزيين المحيط احتفالًا بشهر رمضان!")
     ramadan_prompttext = st.chat_input("قم بإنشاء إعدادات الإفطار/السحور الخاصة بك لشهر رمضان هذا العام باستخدام الذكاء الاصطناعي")
-    
+    st.subheader(ramadan_prompttext)
     if (ramadan_prompttext is not None):
         if (("افطار" in ramadan_prompttext)|("افطار" in ramadan_prompttext)|("افطار" in ramadan_prompttext) | ("افطار" in ramadan_prompttext) | ("سحر" in ramadan_prompttext) | ("سحر" in ramadan_prompttext)):
             print("Check")
