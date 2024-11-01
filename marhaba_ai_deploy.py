@@ -124,7 +124,7 @@ elif listofproducts == "Ramadan Campaign! (Arabic)":
     st.caption("نموذج موجه: قم بإنشاء صورة لإعداد إفطار يحتوي على أطباق تقليدية ويتم أيضًا تزيين المحيط احتفالًا بشهر رمضان!")
     ramadan_prompttext = st.chat_input("قم بإنشاء إعدادات الإفطار/السحور الخاصة بك لشهر رمضان هذا العام باستخدام الذكاء الاصطناعي")
     if (ramadan_prompttext is not None):
-        st.caption("Your Prompt: " + ramadan_prompttext)
+        st.caption("موجهك: " + ramadan_prompttext)
         client = OpenAI()
         ramadan_response = client.images.generate(
             model="dall-e-3",
