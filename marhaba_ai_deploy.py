@@ -26,7 +26,7 @@ os.environ['OPENAI_API_KEY'] = st.secrets["openai_secret_key"]
 ## Creating the sidebar ux here
 
 with st.sidebar:
-    st.logo(marhabaailogo,link='https://marhabaai.streamlit.app/',size="large")
+    st.image(marhabaailogo)
     listofproducts = st.selectbox("Choose a product for demo:",("-","Adengappa kadhaigal!","Back to school!","Ramadan Campaign!","Ramadan Campaign! (Arabic)","Create your Ramadan recipe!"),)
     if listofproducts == "-": choicetext = ""
     elif listofproducts == "Adengappa kadhaigal!": choicetext = "Scan your household item , turn them into stories and become your Kid's favourite Storyteller!"
