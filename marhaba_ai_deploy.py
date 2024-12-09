@@ -27,7 +27,7 @@ os.environ['OPENAI_API_KEY'] = st.secrets["openai_secret_key"]
 
 with st.sidebar:
     st.image(marhabaailogo)
-    listofproducts = st.selectbox("Choose a product for demo:",("-","Adengappa kadhaigal!","Back to school!","Ramadan Campaign!","Ramadan Campaign! (Arabic)","Create your Ramadan recipe!"),)
+    listofproducts = st.selectbox("Choose a product for demo:",("-","Adengappa kadhaigal!","Back to school!","Ramadan Campaign!","Ramadan Campaign! (Arabic)","Create your Ramadan recipe!","Spice up your dream moment!"),)
     if listofproducts == "-": choicetext = ""
     elif listofproducts == "Adengappa kadhaigal!": choicetext = "Scan your household item , turn them into stories and become your Kid's favourite Storyteller!"
     elif listofproducts == "Back to school!": choicetext = '''IMAGINE & CREATE!  
@@ -36,6 +36,8 @@ with st.sidebar:
     Your Dream Iftar setup with AI'''
     elif listofproducts == "Ramadan Campaign! (Arabic)": choicetext = '''تخيل وأبدع!  
     إعداد إفطار أحلامك باستخدام الذكاء الاصطناعي'''
+    elif listofproducts == "Spice up your dream moment!": choicetext = '''IMAGINE & CREATE!  
+    Your Dream Moment with AI'''
     else: choicetext = '''30 days. 30 inspirational  
     Recipes for Iftar with AI'''
     st.markdown(choicetext)
@@ -135,6 +137,28 @@ elif listofproducts == "Ramadan Campaign! (Arabic)":
             )
         image_url = ramadan_response.data[0].url
         st.image(image_url)
+
+# dream moment
+elif listofproducts == "Spice up your dream moment!":
+    st.title("Spice-up Campaign!")
+    st.caption("Sample Prompt: Create a moment in space enjoying lays chips")
+    spiceup_prompttext = st.chat_input("Using AI, create your dream moment where you want to enjoy a packet of lays")
+    
+    if (spiceup_prompttext is not None):
+        if (("lays" in spiceup_prompttext)|("Lays" in spiceup_prompttext)):
+            st.caption("Your Prompt: " + spiceup_prompttext)
+            client = OpenAI()
+            spiceup_response = client.images.generate(
+                model="dall-e-3",
+                prompt=spiceup_prompttext,
+                size="1024x1024",
+                quality="standard",
+                n=1,
+                )
+            image_url = spiceup_response.data[0].url
+            st.image(image_url)
+        else:
+            st.write("The prompt should contain the word 'lays'or 'Lays' as the campaign is regarding the same!")
 else:
     st.title("Create your recipe with AI!")
     img_file_buffer_recipe = st.file_uploader("Upload a picture of a food item!",type=['png','jpg','jpeg'],accept_multiple_files=False)
