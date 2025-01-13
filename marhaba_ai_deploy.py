@@ -173,6 +173,7 @@ elif listofproducts == "Receipt Verification":
         invdf = pd.DataFrame(columns=['File Name','Product Found','Date of Invoice','Total Amount for Product','Second Iteration'])
         count = 0
         for fileval in invoice_files:
+            print(fileval.name)
             image_bytes_invoice = fileval.getvalue()
             image_base64 = base64.b64encode(image_bytes_invoice).decode('utf-8')
             invdf.loc[count,'File Name'] = fileval.name
@@ -232,7 +233,7 @@ elif listofproducts == "Receipt Verification":
     invdf['Total Amount for Product'] = pd.to_numeric(invdf['Total Amount for Product'])
     
     # Creating another second iteration column
-    invdf['Second Iteration1'] = invdf['Second Iteration1'].apply(lambda x: sum(float(num) for num in re.findall(r'\d+\.\d+',x)))
+    invdf['Second Iteration1'] = invdf['Second Iteration'].apply(lambda x: sum(float(num) for num in re.findall(r'\d+\.\d+',x)))
     invdf['Second Iteration1'] = pd.to_numeric(invdf['Second Iteration1'])
     
     for row in range(0,invdf.shape[0]):
@@ -241,7 +242,7 @@ elif listofproducts == "Receipt Verification":
     
     # Selecting only the required columns
     finalinvfdf = invdf[['File Name','Product Found','Date of Invoice','Total Amount for Product']]
-    print(finalinvfdf)
+    st.dataframe(finalinvfdf)
 else:
     st.title("Create your recipe with AI!")
     img_file_buffer_recipe = st.file_uploader("Upload a picture of a food item!",type=['png','jpg','jpeg'],accept_multiple_files=False)
