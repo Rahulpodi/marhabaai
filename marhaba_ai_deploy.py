@@ -242,7 +242,8 @@ elif listofproducts == "Receipt Verification":
         
         # Selecting only the required columns
         finalinvfdf = invdf[['File Name','Product Found','Date of Invoice','Total Amount for Product']]
-        st.dataframe(finalinvfdf)
+        if finalinvfdf.shape[0]>0:
+            st.dataframe(finalinvfdf)
 else:
     st.title("Create your recipe with AI!")
     img_file_buffer_recipe = st.file_uploader("Upload a picture of a food item!",type=['png','jpg','jpeg'],accept_multiple_files=False)
