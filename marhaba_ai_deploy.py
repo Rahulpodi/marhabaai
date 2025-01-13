@@ -243,7 +243,7 @@ elif listofproducts == "Receipt Verification":
         # Selecting only the required columns
         finalinvfdf = invdf[['File Name','Product Found','Date of Invoice','Total Amount for Product']]
         if finalinvfdf.shape[0]>0:
-            st.dataframe(invdf)
+            #st.dataframe(invdf)
             st.dataframe(finalinvfdf)
 else:
     st.title("Create your recipe with AI!")
