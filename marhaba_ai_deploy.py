@@ -166,8 +166,10 @@ elif listofproducts == "Spice up your dream moment!":
 # receipt verification
 elif listofproducts == "Receipt Verification":
     st.title("AI Receipt Verification")
+    st.subheader("Input",divider="gray")
+    # Receiving Input
+    countryoptions = st.selectbox("Enter the country:", ('KSA','Kuwait'))
     invoice_files = st.file_uploader("Upload your receipts", type=['png','jpg','jpeg'], accept_multiple_files=True)
-    
     if (invoice_files is not None):
         st.subheader("Output", divider="gray")
         invdf = pd.DataFrame(columns=['File Name','Product Found','Date of Invoice','Total Amount for Product','Second Iteration'])
@@ -239,9 +241,18 @@ elif listofproducts == "Receipt Verification":
         for row in range(0,invdf.shape[0]):
             if invdf.loc[row,'Total Amount for Product'] != invdf.loc[row,'Second Iteration1']:
                 invdf.loc[row,'Total Amount for Product'] = invdf.loc[row,'Second Iteration1']
-        
+                   
         # Selecting only the required columns
         finalinvfdf = invdf[['File Name','Product Found','Date of Invoice','Total Amount for Product']]
+        # Implementing conditions:
+        for rowitem in range(0,finalinvfdf.shape[0]):
+            if (countryoptions=='KSA') & (finalinvfdf['Total Amount for Product']>60) & (finalinvfdf['Product Found']=='Yes'):
+                finalinvfdf.loc[rowitem,'Validity'] = 'Valid'
+            elif (countryoptions=='Kuwait') & (finalinvfdf['Total Amount for Product']>5) & (finalinvfdf['Product Found']=='Yes'):
+                finalinvfdf.loc[rowitem,'Validity'] = 'Valid'
+            else:
+                finalinvfdf.loc[rowitem,'Validity'] = 'Invalid'
+        # Showing the output
         if finalinvfdf.shape[0]>0:
             #st.dataframe(invdf)
             st.dataframe(finalinvfdf)
