@@ -169,11 +169,11 @@ elif listofproducts == "Receipt Verification":
     invoice_files = st.file_uploader("Upload your receipts", type=['png','jpg','jpeg'], accept_multiple_files=True)
     
     if (invoice_files is not None):
-        
+        st.subheader("Output", divider="gray")
         invdf = pd.DataFrame(columns=['File Name','Product Found','Date of Invoice','Total Amount for Product','Second Iteration'])
         count = 0
         for fileval in invoice_files:
-            print(fileval.name)
+            st.write('Processing - ',fileval.name)
             image_bytes_invoice = fileval.getvalue()
             image_base64 = base64.b64encode(image_bytes_invoice).decode('utf-8')
             invdf.loc[count,'File Name'] = fileval.name
@@ -243,6 +243,7 @@ elif listofproducts == "Receipt Verification":
         # Selecting only the required columns
         finalinvfdf = invdf[['File Name','Product Found','Date of Invoice','Total Amount for Product']]
         if finalinvfdf.shape[0]>0:
+            st.dataframe(invdf)
             st.dataframe(finalinvfdf)
 else:
     st.title("Create your recipe with AI!")
