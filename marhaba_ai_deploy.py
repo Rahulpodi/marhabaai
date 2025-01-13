@@ -213,7 +213,7 @@ elif listofproducts == "Receipt Verification":
                         "content":[
                             {
                                 "type":"text",
-                                "text": "Print the amount corresponding to persil or prsl products (it can be in arabic as well in this way: برسيل . Consider only english if both are present) without any currency denomination. Don't total the amounts, just the raw values would suffice. Also a thing to note: don't get confused with unit price and the final purchase price. For e.g., let's say 27.95 is the unit price but since two units were purchased the final purchase will be 55.90. The required value in such cases is 55.90.",
+                                "text": "Print the amount corresponding to persil or prsl products (it can be in arabic as well in this way: برسيل . Consider only english if both are present) without any currency denomination. Don't total the amounts, just the raw values would suffice. Also a thing to note: don't get confused with unit price and the final purchase price. For e.g., let's say 27.95 is the unit price but since two units were purchased the final purchase will be 55.90. The required value in such cases is 55.90. This has to be considered say if both 27.95 and 55.90. If both the prices are not given and let's say the no. of items purchased is 2, then the provided price is already the price for 2 items. You need not again multiply with 2.",
                             },
                             {
                                 "type":"image_url",
