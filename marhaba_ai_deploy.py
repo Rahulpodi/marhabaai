@@ -228,21 +228,21 @@ elif listofproducts == "Receipt Verification":
             invdf.loc[count,'Second Iteration'] = checkresponse_text
             count+=1
     
-    # Processing the combined dataset
-    invdf['Total Amount for Product'] = invdf['Total Amount for Product'].apply(lambda x: re.sub(r'[^0-9.]','',x).strip('.'))
-    invdf['Total Amount for Product'] = pd.to_numeric(invdf['Total Amount for Product'])
-    
-    # Creating another second iteration column
-    invdf['Second Iteration1'] = invdf['Second Iteration'].apply(lambda x: sum(float(num) for num in re.findall(r'\d+\.\d+',x)))
-    invdf['Second Iteration1'] = pd.to_numeric(invdf['Second Iteration1'])
-    
-    for row in range(0,invdf.shape[0]):
-        if invdf.loc[row,'Total Amount for Product'] != invdf.loc[row,'Second Iteration1']:
-            invdf.loc[row,'Total Amount for Product'] = invdf.loc[row,'Second Iteration1']
-    
-    # Selecting only the required columns
-    finalinvfdf = invdf[['File Name','Product Found','Date of Invoice','Total Amount for Product']]
-    st.dataframe(finalinvfdf)
+        # Processing the combined dataset
+        invdf['Total Amount for Product'] = invdf['Total Amount for Product'].apply(lambda x: re.sub(r'[^0-9.]','',x).strip('.'))
+        invdf['Total Amount for Product'] = pd.to_numeric(invdf['Total Amount for Product'])
+        
+        # Creating another second iteration column
+        invdf['Second Iteration1'] = invdf['Second Iteration'].apply(lambda x: sum(float(num) for num in re.findall(r'\d+\.\d+',x)))
+        invdf['Second Iteration1'] = pd.to_numeric(invdf['Second Iteration1'])
+        
+        for row in range(0,invdf.shape[0]):
+            if invdf.loc[row,'Total Amount for Product'] != invdf.loc[row,'Second Iteration1']:
+                invdf.loc[row,'Total Amount for Product'] = invdf.loc[row,'Second Iteration1']
+        
+        # Selecting only the required columns
+        finalinvfdf = invdf[['File Name','Product Found','Date of Invoice','Total Amount for Product']]
+        st.dataframe(finalinvfdf)
 else:
     st.title("Create your recipe with AI!")
     img_file_buffer_recipe = st.file_uploader("Upload a picture of a food item!",type=['png','jpg','jpeg'],accept_multiple_files=False)
