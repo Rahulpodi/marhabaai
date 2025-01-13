@@ -246,9 +246,9 @@ elif listofproducts == "Receipt Verification":
         finalinvfdf = invdf[['File Name','Product Found','Date of Invoice','Total Amount for Product']]
         # Implementing conditions:
         for rowitem in range(0,finalinvfdf.shape[0]):
-            if (countryoptions=='KSA') & (finalinvfdf['Total Amount for Product']>60) & (finalinvfdf['Product Found']=='Yes'):
+            if (countryoptions=='KSA') & (finalinvfdf.loc[rowitem,'Total Amount for Product']>60) & (finalinvfdf.loc[rowitem,'Product Found']=='Yes'):
                 finalinvfdf.loc[rowitem,'Validity'] = 'Valid'
-            elif (countryoptions=='Kuwait') & (finalinvfdf['Total Amount for Product']>5) & (finalinvfdf['Product Found']=='Yes'):
+            elif (countryoptions=='Kuwait') & (finalinvfdf.loc[rowitem,'Total Amount for Product']>5) & (finalinvfdf.loc[rowitem,'Product Found']=='Yes'):
                 finalinvfdf.loc[rowitem,'Validity'] = 'Valid'
             else:
                 finalinvfdf.loc[rowitem,'Validity'] = 'Invalid'
