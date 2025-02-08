@@ -41,7 +41,7 @@ with st.sidebar:
     # elif listofproducts == "Spice up your dream moment!": choicetext = '''IMAGINE & CREATE!  
     # Your Dream Moment with AI'''
     elif listofproducts == "Receipt Verification": choicetext = "Handling hundreds of receipts manually, Put AI to work!"
-    elif listofproducts == "'AI Hair Expert'": choicetext = "Click your image, get your hair profiled and also a personalized hair care regime!"
+    elif listofproducts == "AI Hair Expert": choicetext = "Click your image, get your hair profiled and also a personalized hair care regime!"
     else: choicetext = '''30 days. 30 inspirational  
     Recipes for Iftar with AI'''
     st.markdown(choicetext)
