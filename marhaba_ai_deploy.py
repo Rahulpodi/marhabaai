@@ -174,7 +174,7 @@ elif listofproducts == "AI Hair Expert":
         image_base64_hair = base64.b64encode(image_bytes_hair).decode('utf-8')
         client = OpenAI()
         hair_response = client.chat.completions.create(
-              model="o1-preview",
+              model="gpt-4o-mini",
               messages=[
                 {
                   "role": "user",
