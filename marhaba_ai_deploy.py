@@ -165,7 +165,7 @@ elif listofproducts == "Ramadan Campaign! (Arabic)":
 #             st.write("The prompt should contain the word 'lays'or 'Lays' as the campaign is regarding the same!")
 
 # hairAI
-elif listofproducts == "HairAI":
+elif listofproducts == "AI Hair Expert":
     st.title("AI scalp+hair Expert")
     img_file_buffer_hair = st.camera_input("Click a picture of your entire scalp!")
     
