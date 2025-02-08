@@ -171,7 +171,7 @@ elif listofproducts == "AI Hair Expert":
     
     if (img_file_buffer_hair is not None):
         image_bytes_hair = img_file_buffer_hair.getvalue()
-        image_base64_har = base64.b64encode(image_bytes_hair).decode('utf-8')
+        image_base64_hair = base64.b64encode(image_bytes_hair).decode('utf-8')
         client = OpenAI()
         hair_response = client.chat.completions.create(
               model="gpt-4o",
@@ -208,7 +208,7 @@ elif listofproducts == "AI Hair Expert":
                 }
               ],
             )
-        st.markdown(adengappa_response.choices[0].message.content)
+        st.markdown(hair_response.choices[0].message.content)
 
             
 # receipt verification
