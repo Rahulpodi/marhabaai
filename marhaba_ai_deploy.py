@@ -201,7 +201,7 @@ elif listofproducts == "AI Hair Expert":
                     {
                       "type": "image_url",
                       "image_url": {
-                        "url":  f"data:image/jpeg;base64,{image_bytes_hair}"
+                        "url":  f"data:image/jpeg;base64,{image_base64_hair}"
                       },
                     },
                   ],
