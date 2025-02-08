@@ -41,6 +41,7 @@ with st.sidebar:
     # elif listofproducts == "Spice up your dream moment!": choicetext = '''IMAGINE & CREATE!  
     # Your Dream Moment with AI'''
     elif listofproducts == "Receipt Verification": choicetext = "Handling hundreds of receipts manually, Put AI to work!"
+    elif listofproducts == "HairAI": choicetext = "Upload your image, get your hair profiled and also a personalized hair care regime!"
     else: choicetext = '''30 days. 30 inspirational  
     Recipes for Iftar with AI'''
     st.markdown(choicetext)
@@ -162,6 +163,53 @@ elif listofproducts == "Ramadan Campaign! (Arabic)":
 #             st.image(image_url)
 #         else:
 #             st.write("The prompt should contain the word 'lays'or 'Lays' as the campaign is regarding the same!")
+
+# hairAI
+elif listofproducts == "HairAI":
+    st.title("AI scalp+hair Expert")
+    img_file_buffer_hair = st.camera_input("Click a picture of your entire scalp!")
+    
+    if (img_file_buffer_hair is not None):
+        image_bytes_hair = img_file_buffer_hair.getvalue()
+        image_base64_har = base64.b64encode(image_bytes_hair).decode('utf-8')
+        client = OpenAI()
+        hair_response = client.chat.completions.create(
+              model="gpt-4o",
+              messages=[
+                {
+                  "role": "user",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": '''The image pertains to hair of a person and you are required to analyze the hair of this person.
+                      To start with profile the hair in terms of
+                      1. Hair Density
+                      2. Hair Thickness
+                      3. Hair Texture
+                      4. Hair Strength
+                      5. Scalp Balance
+                      
+                      Basis the above, can you suggest does the hair need
+                      1. Deep Care
+                      2. Medium Care
+                      3. Gentle Care
+                      
+                      Fianlly, basis the above care regime, suggest products only from Gliss company.
+                      '''
+                      ,
+                    },
+                    {
+                      "type": "image_url",
+                      "image_url": {
+                        "url":  f"data:image/jpeg;base64,{image_bytes_hair}"
+                      },
+                    },
+                  ],
+                }
+              ],
+            )
+        st.markdown(adengappa_response.choices[0].message.content)
+
             
 # receipt verification
 elif listofproducts == "Receipt Verification":
