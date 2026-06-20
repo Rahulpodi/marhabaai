@@ -6,11 +6,12 @@ Created on Tue Oct 15 17:36:13 2024
 import time
 import os
 import streamlit as st
-import ollama
+#import ollama
 from openai import OpenAI
 import base64
 import pandas as pd
 import re
+import json
 
 ### UI Functions
 def stream_data(text):
@@ -253,7 +254,25 @@ elif listofproducts == "Receipt Verification":
                         "content":[
                             {
                                 "type":"text",
-                                "text": "From the invoice/bill extract date of invoice(if it is not available, the output in the mentioned format should just be None. The year cannot be greater than 2024 or 2025. Understand the extracted date with this context as well), check if the product 'persil' or 'prsl' is found (yes/no) response (note: it could be in arabic as well in this way: برسيل . Consider only english if oth are present), if it is present then extract only total amount of all 'persil' or 'prsl' products without any currency denomination. The output representation has to always be in the following format (including commas and colons): 'Product Found: Only Yes/No, Date of Invoice: (in DD-MM-YYYY format), Total amount for product:'",
+                                "text": """
+                                        From the invoice/bill:
+                                        
+                                        1. Extract the invoice date. If not available, return None.
+                                        2. The year cannot be greater than 2024 or 2025.
+                                        3. Check whether the product 'persil' or 'prsl' is present.
+                                           It may also appear in Arabic as 'برسيل'.
+                                           If both English and Arabic are present, consider only English.
+                                        4. If present, extract the total amount corresponding to all Persil products.
+                                           Do not include the currency denomination.
+                                        
+                                        Return ONLY valid JSON and nothing else.
+                                        
+                                        {
+                                          "product_found": "Yes or No",
+                                          "date_of_invoice": "DD-MM-YYYY or None",
+                                          "total_amount_for_product": "numeric value"
+                                        }
+                                        """,
                             },
                             {
                                 "type":"image_url",
@@ -265,12 +284,24 @@ elif listofproducts == "Receipt Verification":
                 temperature=0.5,
             )
             response_text = response.choices[0].message.content
-            st.write(response)
-            st.write(response_text)
-            invdf.loc[count,'Product Found'] = response_text.split(',')[0].split(':')[1].strip()
-            invdf.loc[count,'Date of Invoice'] = response_text.split(',')[1].split(':')[1].strip()
-            invdf.loc[count,'Total Amount for Product'] = response_text.split(',')[2].split(':')[1].strip()
-            
+            #st.write(response)
+            #st.write(response_text)
+            #invdf.loc[count,'Product Found'] = response_text.split(',')[0].split(':')[1].strip()
+            #invdf.loc[count,'Date of Invoice'] = response_text.split(',')[1].split(':')[1].strip()
+            #invdf.loc[count,'Total Amount for Product'] = response_text.split(',')[2].split(':')[1].strip()
+            try:
+                data = json.loads(response_text)
+
+                invdf.loc[count,'Product Found'] = data["product_found"]
+                invdf.loc[count,'Date of Invoice'] = data["date_of_invoice"]
+                invdf.loc[count,'Total Amount for Product'] = data["total_amount_for_product"]
+
+            except Exception as e:
+                st.write("Unable to parse response:")
+                st.write(response_text)
+                invdf.loc[count,'Product Found'] = "No"
+                invdf.loc[count,'Date of Invoice'] = "None"
+                invdf.loc[count,'Total Amount for Product'] = 0
             # Second Extraction - to counter amount mismatches
             checkresponse = client.chat.completions.create(
                 model='gpt-4o',
