@@ -290,6 +290,8 @@ elif listofproducts == "Receipt Verification":
             #invdf.loc[count,'Date of Invoice'] = response_text.split(',')[1].split(':')[1].strip()
             #invdf.loc[count,'Total Amount for Product'] = response_text.split(',')[2].split(':')[1].strip()
             try:
+                st.write(type(response_text))
+                st.write(repr(response_text))
                 data = json.loads(response_text)
 
                 invdf.loc[count,'Product Found'] = data["product_found"]
@@ -327,7 +329,11 @@ elif listofproducts == "Receipt Verification":
             count+=1
     
         # Processing the combined dataset
-        invdf['Total Amount for Product'] = invdf['Total Amount for Product'].apply(lambda x: re.sub(r'[^0-9.]','',x).strip('.'))
+        #invdf['Total Amount for Product'] = invdf['Total Amount for Product'].apply(lambda x: re.sub(r'[^0-9.]','',x).strip('.'))
+        invdf['Total Amount for Product'] = pd.to_numeric(
+                invdf['Total Amount for Product'],
+                errors='coerce'
+            ).fillna(0)
         invdf['Total Amount for Product'] = pd.to_numeric(invdf['Total Amount for Product'])
         
         # Creating another second iteration column
