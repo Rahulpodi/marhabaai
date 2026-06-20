@@ -265,6 +265,8 @@ elif listofproducts == "Receipt Verification":
                 temperature=0.5,
             )
             response_text = response.choices[0].message.content
+            st.write(response)
+            st.write(response_text)
             invdf.loc[count,'Product Found'] = response_text.split(',')[0].split(':')[1].strip()
             invdf.loc[count,'Date of Invoice'] = response_text.split(',')[1].split(':')[1].strip()
             invdf.loc[count,'Total Amount for Product'] = response_text.split(',')[2].split(':')[1].strip()
