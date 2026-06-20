@@ -94,7 +94,7 @@ elif listofproducts=="Back to school!":
                 model="gpt-image-2",
                 prompt=school_prompttext,
                 size="1024x1024",
-                quality="standard",
+                quality="hig",
                 n=1,
                 )
             image_url = school_response.data[0].url
