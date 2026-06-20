@@ -91,7 +91,7 @@ elif listofproducts=="Back to school!":
             st.caption("Your Prompt: " + school_prompttext)
             client = OpenAI()
             school_response = client.images.generate(
-                model="dall-e-3",
+                model="gpt-image-2",
                 prompt=school_prompttext,
                 size="1024x1024",
                 quality="standard",
