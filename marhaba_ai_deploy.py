@@ -265,13 +265,13 @@ elif listofproducts == "Receipt Verification":
                                         4. If present, extract the total amount corresponding to all Persil products.
                                            Do not include the currency denomination.
                                         
-                                        Return ONLY valid JSON and nothing else.
-                                        
-                                        {
-                                          "product_found": "Yes or No",
-                                          "date_of_invoice": "DD-MM-YYYY or None",
-                                          "total_amount_for_product": "numeric value"
-                                        }
+                                        Return a JSON object with exactly these fields:
+
+                                            {
+                                                "product_found": "Yes or No",
+                                                "date_of_invoice": "DD-MM-YYYY or null",
+                                                "total_amount_for_product": number
+                                            }
                                         """,
                             },
                             {
@@ -281,29 +281,33 @@ elif listofproducts == "Receipt Verification":
                         ],
                     }
                 ],
+                response_format={"type": "json_object"},
                 temperature=0.5,
             )
             response_text = response.choices[0].message.content
-            #st.write(response)
-            #st.write(response_text)
+            data = json.loads(response_text)
+
+            invdf.loc[count,'Product Found'] = data["product_found"]
+            invdf.loc[count,'Date of Invoice'] = data["date_of_invoice"]
+            invdf.loc[count,'Total Amount for Product'] = data["total_amount_for_product"]
             #invdf.loc[count,'Product Found'] = response_text.split(',')[0].split(':')[1].strip()
             #invdf.loc[count,'Date of Invoice'] = response_text.split(',')[1].split(':')[1].strip()
             #invdf.loc[count,'Total Amount for Product'] = response_text.split(',')[2].split(':')[1].strip()
-            try:
-                st.write(type(response_text))
-                st.write(repr(response_text))
-                data = json.loads(response_text)
+            # try:
+            #     st.write(type(response_text))
+            #     st.write(repr(response_text))
+            #     data = json.loads(response_text)
 
-                invdf.loc[count,'Product Found'] = data["product_found"]
-                invdf.loc[count,'Date of Invoice'] = data["date_of_invoice"]
-                invdf.loc[count,'Total Amount for Product'] = data["total_amount_for_product"]
+            #     invdf.loc[count,'Product Found'] = data["product_found"]
+            #     invdf.loc[count,'Date of Invoice'] = data["date_of_invoice"]
+            #     invdf.loc[count,'Total Amount for Product'] = data["total_amount_for_product"]
 
-            except Exception as e:
-                st.write("Unable to parse response:")
-                st.write(response_text)
-                invdf.loc[count,'Product Found'] = "No"
-                invdf.loc[count,'Date of Invoice'] = "None"
-                invdf.loc[count,'Total Amount for Product'] = 0
+            # except Exception as e:
+            #     st.write("Unable to parse response:")
+            #     st.write(response_text)
+            #     invdf.loc[count,'Product Found'] = "No"
+            #     invdf.loc[count,'Date of Invoice'] = "None"
+            #     invdf.loc[count,'Total Amount for Product'] = 0
             # Second Extraction - to counter amount mismatches
             checkresponse = client.chat.completions.create(
                 model='gpt-4o',
