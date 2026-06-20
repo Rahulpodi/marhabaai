@@ -116,14 +116,17 @@ elif listofproducts == "Ramadan Campaign!":
             st.caption("Your Prompt: " + ramadan_prompttext)
             client = OpenAI()
             ramadan_response = client.images.generate(
-                model="dall-e-3",
+                model="gpt-image-2",
                 prompt=ramadan_prompttext,
                 size="1024x1024",
-                quality="standard",
+                quality="high",
                 n=1,
                 )
-            image_url = ramadan_response.data[0].url
-            st.image(image_url)
+            #image_url = ramadan_response.data[0].url
+            #st.image(image_url)
+            image_base64 = ramadan_response.data[0].b64_json
+            image_bytes = base64.b64decode(image_base64)
+            st.image(image_bytes)
         else:
             st.write("The prompt should contain the word 'iftar','iftaar' or 'sehri' as the campaign is about 'Ramadan Festivities'")
 
@@ -136,14 +139,17 @@ elif listofproducts == "Ramadan Campaign! (Arabic)":
         st.caption("موجهك: " + ramadan_prompttext)
         client = OpenAI()
         ramadan_response = client.images.generate(
-            model="dall-e-3",
+            model="gpt-image-2",
             prompt=ramadan_prompttext,
             size="1024x1024",
-            quality="standard",
+            quality="high",
             n=1,
             )
-        image_url = ramadan_response.data[0].url
-        st.image(image_url)
+        #image_url = ramadan_response.data[0].url
+        #st.image(image_url)
+        image_base64 = ramadan_response.data[0].b64_json
+        image_bytes = base64.b64decode(image_base64)
+        st.image(image_bytes)
 
 # dream moment
 # elif listofproducts == "Spice up your dream moment!":
@@ -347,11 +353,14 @@ else:
             st.subheader("Here is a photo of the recipe as well!")
             client = OpenAI()
             recipe_response = client.images.generate(
-                model="dall-e-3",
+                model="gpt-image-2",
                 prompt=recipe_prompt,
                 size="1024x1024",
-                quality="standard",
+                quality="high",
                 n=1,
                 )
-            recipe_image_url = recipe_response.data[0].url
-            st.image(recipe_image_url)
+            #recipe_image_url = recipe_response.data[0].url
+            #st.image(recipe_image_url)
+            image_base64 = recipe_response.data[0].b64_json
+            image_bytes = base64.b64decode(image_base64)
+            st.image(image_bytes)
