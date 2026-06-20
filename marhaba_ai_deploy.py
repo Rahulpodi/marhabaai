@@ -101,6 +101,7 @@ elif listofproducts=="Back to school!":
             #st.image(image_url)
             image_base64 = school_response.data[0].b64_json
             image_bytes = base64.b64decode(image_base64)
+            st.image(image_bytes)
         else:
             st.write("The prompt should contain the word 'school' as the campaign is about 'Back to school!'")
 
